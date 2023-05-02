@@ -1,27 +1,28 @@
 package com.springboot.demo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
+
+import java.math.BigDecimal;
 
 
-@Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@Entity
+
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private int id;
     private String firstName;
     private String lastName;
-    @JsonIgnore
-    private long salary;
+    private BigDecimal salary;
     private String department;
 
 
