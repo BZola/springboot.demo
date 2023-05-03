@@ -1,10 +1,15 @@
 package com.springboot.demo.controller;
 
+import com.springboot.demo.dto.EmployeeDto;
+import com.springboot.demo.exception.EmployeeNotFoundException;
 import com.springboot.demo.model.Employee;
 import com.springboot.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -14,18 +19,18 @@ public class EmployeeController {
     private EmployeeService eService;
 
     @PostMapping("/add")
-    public Employee addEmployee(@RequestBody Employee employee) {
-        return eService.save(employee);
+    public ResponseEntity<Employee> saveEmployee(@RequestBody @Valid EmployeeDto empDto) {
+        return new ResponseEntity<>(eService.saveEmployee(empDto), HttpStatus.CREATED);
     }
 
-    @GetMapping()
-    public List<Employee> getEmployees() {
-        return eService.getEmployees();
+    @GetMapping("/fetchAll")
+    public ResponseEntity<List<Employee>> getAllEmployees() {
+        return ResponseEntity.ok(eService.getEmployees());
     }
 
     @GetMapping("/{id}")
-    public Employee getEmployee(@PathVariable int id) {
-        return eService.findEmployeeById(id);
+    public ResponseEntity<Employee> getEmployee(@PathVariable int id) throws EmployeeNotFoundException {
+        return ResponseEntity.ok(eService.getEmployee(id));
     }
 
     @PutMapping("/{id}")

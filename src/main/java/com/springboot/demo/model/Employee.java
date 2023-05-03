@@ -7,12 +7,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
+import org.hibernate.annotations.Table;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
 
 
 @Data
-@AllArgsConstructor
+@AllArgsConstructor(staticName = "build")
 @NoArgsConstructor
 @Entity
 
@@ -22,8 +26,9 @@ public class Employee {
     private int id;
     private String firstName;
     private String lastName;
-    private BigDecimal salary;
+    private String email;
     private String department;
+    private String phone;
 
 
 }
