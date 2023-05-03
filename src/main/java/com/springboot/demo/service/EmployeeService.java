@@ -1,6 +1,7 @@
 package com.springboot.demo.service;
 
 import com.springboot.demo.dto.EmployeeDto;
+import com.springboot.demo.exception.EmployeeNotFoundException;
 import com.springboot.demo.model.Employee;
 import com.springboot.demo.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,17 @@ public class EmployeeService {
         return eRepository.findAll();
     }
 
-    public Employee findById(int id) {
+    public Employee findById(int id) throws EmployeeNotFoundException {
         return eRepository.findById(id).orElse(null);
     }
-    public Employee getEmployee(int id){
-        Employee employee = eRepository.findById(id).orElse(null);
-        return employee;
+    public Employee getEmployee(int id) throws EmployeeNotFoundException {
+        Employee user = eRepository.findById(id).orElse(null);
+        if (user != null) {
+            return user;
+        } else {
+            throw new EmployeeNotFoundException("user not found with id : " + id);
+        }
     }
-
 
 
     public Employee update(Employee employee) {

@@ -12,13 +12,20 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-@ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleInvalidArg(MethodArgumentNotValidException e){
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleInvalidArgument(MethodArgumentNotValidException e){
     Map<String, String> errorMap = new HashMap<>();
     e.getBindingResult().getFieldErrors().forEach(error->{
         errorMap.put(error.getField(),error.getDefaultMessage());
     });
     return errorMap;
 
+    }
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(EmployeeNotFoundException.class)
+    public Map<String, String> handleBusinessException(EmployeeNotFoundException e){
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("errorMessage", e.getMessage());
+        return errorMap;
     }
 }

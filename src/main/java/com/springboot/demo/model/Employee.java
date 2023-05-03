@@ -10,6 +10,7 @@ import lombok.*;
 import org.hibernate.annotations.Table;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.math.BigDecimal;
@@ -24,10 +25,14 @@ public class Employee {
     @Id
     @GeneratedValue
     private int id;
+    @NotNull(message = "please enter name")
     private String firstName;
+    @NotNull
     private String lastName;
+    @Email
     private String email;
     private String department;
+    @NotBlank
     private String phone;
 
 

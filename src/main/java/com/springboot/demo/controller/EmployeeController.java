@@ -33,7 +33,7 @@ public class EmployeeController {
         return ResponseEntity.ok(eService.getEmployee(id));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("update/{id}")
     public Employee updateEmployee(@RequestBody Employee employee) {
         return eService.update(employee);
     }
